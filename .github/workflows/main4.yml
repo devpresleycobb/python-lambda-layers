@@ -25,7 +25,7 @@ jobs:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
       - name: test
-        run: echo ::set-output name=files::(steps.file_changes.outputs.files, steps.file_changes.outputs.files_modified, steps.file_changes.outputs.files_added, steps.file_changes.outputs.files_removed)
+        run: echo ::set-output name=files::$(steps.file_changes.outputs.files, steps.file_changes.outputs.files_modified, steps.file_changes.outputs.files_added, steps.file_changes.outputs.files_removed)
 #          echo '${{ steps.file_changes.outputs.files}}'
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
 #          echo '${{ steps.file_changes.outputs.files_added}}'
