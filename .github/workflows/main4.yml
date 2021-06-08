@@ -32,4 +32,4 @@ jobs:
 #          echo '${{ steps.file_changes.outputs.files_removed}}'
       - name: test2
         run: |
-          echo '${{ files }}'
+          echo '${{ steps.vars.outputs.files }}'
