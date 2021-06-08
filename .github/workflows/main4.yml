@@ -24,15 +24,9 @@ jobs:
     steps:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
-      - name: test
-        run: |
-          touch /home/data.txt
-          echo "message from action 1" >> /home/data.txt
-#          echo '${{ steps.file_changes.outputs.files}}'
-#          echo '${{ steps.file_changes.outputs.files_modified}}'
-#          echo '${{ steps.file_changes.outputs.files_added}}'
-#          echo '${{ steps.file_changes.outputs.files_removed}}'
-      - name: test2
-        run: |
+      - run: |
+          export FOO=bar
+          echo "::set-env name=FOO::$FOO"
+      - run: echo $FOO
           value=$(cat /home/data.txt)
           echo $value echo "Action 2 Done"
