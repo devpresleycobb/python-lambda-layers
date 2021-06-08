@@ -24,11 +24,15 @@ jobs:
     steps:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
-      - name: Set the value
-        id: step_one
+      - name: test
         run: |
-          echo "action_state=yellow" >> $GITHUB_ENV
-      - name: Use the value
-        id: step_two
+          echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
+#          echo '${{ steps.file_changes.outputs.files}}'
+#          echo '${{ steps.file_changes.outputs.files_modified}}'
+#          echo '${{ steps.file_changes.outputs.files_added}}'
+#          echo '${{ steps.file_changes.outputs.files_removed}}'
+      - name: test2
         run: |
-          echo "${{ env.action_state }}" # This will output 'yellow'
+          echo "${{ env.file }}"
+
+
