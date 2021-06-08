@@ -25,13 +25,14 @@ jobs:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
       - name: test
-        run: |
-          export FILES=${{steps.file_changes.outputs.files}}
+      - run: |
+          export FOO=bar
+          echo "::set-env name=FOO::$FOO"
+#          export FILES=${{steps.file_changes.outputs.files}}
 #          echo "::set-env name=FILES::$FILES"
 #          echo '${{ steps.file_changes.outputs.files}}'
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
 #          echo '${{ steps.file_changes.outputs.files_added}}'
 #          echo '${{ steps.file_changes.outputs.files_removed}}'
       - name: test2
-        run: |
-          echo $FILES
+      - run: echo $FOO
