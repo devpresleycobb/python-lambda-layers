@@ -33,6 +33,6 @@ jobs:
 #          echo '${{ steps.file_changes.outputs.files_removed}}'
       - name: test2
         run: |
-          echo "${{ env.file }}"
+          echo "${{ env.files }}"
 
 
