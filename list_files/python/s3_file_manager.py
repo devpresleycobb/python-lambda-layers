@@ -6,4 +6,4 @@ def list_files(bucket_name: str):
     bucket = s3.Bucket(bucket_name)
 
     for file in bucket.objects.all():
-        print(file.key)
+        print(f'File: {file.key}')
