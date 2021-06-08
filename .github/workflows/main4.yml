@@ -27,7 +27,7 @@ jobs:
       - name: test
         run: |
           export FILES=${{steps.file_changes.outputs.files}}
-          echo "::set-env name=FILES::$FILES"
+#          echo "::set-env name=FILES::$FILES"
 #          echo '${{ steps.file_changes.outputs.files}}'
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
 #          echo '${{ steps.file_changes.outputs.files_added}}'
