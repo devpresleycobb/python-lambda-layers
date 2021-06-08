@@ -26,6 +26,7 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
       - name: test
         run: |
+          touch /github/home/data.txt
           echo "message from action 1" >> /github/home/data.txt
 #          echo '${{ steps.file_changes.outputs.files}}'
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
