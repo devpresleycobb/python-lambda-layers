@@ -25,12 +25,13 @@ jobs:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
       - name: test
-      run: |
-          export FOO=bar
-          echo "::set-env name=FOO::$FOO"
+        run: |
+          echo "message from action 1" >> /github/home/data.txt
 #          echo '${{ steps.file_changes.outputs.files}}'
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
 #          echo '${{ steps.file_changes.outputs.files_added}}'
 #          echo '${{ steps.file_changes.outputs.files_removed}}'
       - name: test2
-      run: echo $FOO
+        run: |
+          value=$(cat /github/home/data.txt)
+          echo $value echo "Action 2 Done"
