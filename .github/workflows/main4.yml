@@ -31,8 +31,13 @@ jobs:
 #          echo '${{ steps.file_changes.outputs.files_modified}}'
 #          echo '${{ steps.file_changes.outputs.files_added}}'
 #          echo '${{ steps.file_changes.outputs.files_removed}}'
+
       - name: test2
         run: |
           echo "${{ env.files }}"
+      - name: Archive Release
+        uses: thedoctor0/zip-release@master
+        with:
+          filename: 'release.zip'
 
 
