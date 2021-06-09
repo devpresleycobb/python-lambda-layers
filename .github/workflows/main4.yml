@@ -27,18 +27,20 @@ jobs:
       - name: test
         run: |
           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
-#          echo '${{ steps.file_changes.outputs.files}}'
-#          echo '${{ steps.file_changes.outputs.files_modified}}'
-#          echo '${{ steps.file_changes.outputs.files_added}}'
-#          echo '${{ steps.file_changes.outputs.files_removed}}'
-
       - name: test2
         run: |
           echo "${{ env.files }}"
       - uses: actions/checkout@master
       - name: Zip Folder
         run: zip -r release.zip . -x ".git/*" ".github/*"
-      - name: Release to Github
-        run: echo "Release"
+      - name: default deploy
+        uses: appleboy/lambda-action@master
+        with:
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_region: us-east-1
+          function_name: update_layers
+          zip_file: release.zip
+          environment: changes=${{ env.files }}
 
 
