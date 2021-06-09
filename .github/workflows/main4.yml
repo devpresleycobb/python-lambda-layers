@@ -42,5 +42,7 @@ jobs:
           function_name: update_layers
           zip_file: release.zip
           environment: changes=${{ env.files }}
+          timeout: 20
+          runtime: python3.7
 
 
