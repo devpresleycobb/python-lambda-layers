@@ -41,4 +41,4 @@ jobs:
           url: 'https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev'
           method: 'POST'
           files: '{"release": "/home/runner/work/python-lambda-layers/python-lambda-layers/release.zip"}'
-          data: "{changes: ${{env.files}}}"
+          data: '{"changes": ${{env.files}}}'
