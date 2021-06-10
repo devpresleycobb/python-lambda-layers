@@ -40,5 +40,5 @@ jobs:
         uses: reggionick/s3-deploy@v3
         with:
           folder: /home/runner/work/python-lambda-layers/python-lambda-layers/
-          bucket: ${{ secrets.S3_BUCKET }}
-          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
+          bucket: pc-release
+          bucket-region: us-east-1
