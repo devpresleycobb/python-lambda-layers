@@ -37,7 +37,7 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
-          for file in ${{ env.files }}; do echo /home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/python; done
+          for file in ${{ env.files }}; do echo /home/runner/work/python-lambda-layers/python-lambda-layers/${file:1%%/*}/python; done
 #       - uses: jakejarvis/s3-sync-action@master
 #         with:
 #           args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*' --exclude '.gitignore'
