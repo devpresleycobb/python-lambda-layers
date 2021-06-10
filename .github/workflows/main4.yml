@@ -36,9 +36,11 @@ jobs:
       - name: Zip Folder
         run: |
           zip -r release.zip . -x ".git/*" ".github/*"
-      - name: Upload Release
-        uses: reggionick/s3-deploy@v3
+      - uses: shallwefootball/s3-upload-action@master
+        name: Upload Release
+        id: S3
         with:
-          folder: /home/runner/work/python-lambda-layers/python-lambda-layers/
-          bucket: pc-releases
-          bucket-region: us-east-1
+          aws_key_id: ${{ secrets.AWS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY}}
+          aws_bucket: ${{ secrets.AWS_BUCKET }}
+          source_dir: '/home/runner/work/python-lambda-layers/python-lambda-layers/release.zip'
