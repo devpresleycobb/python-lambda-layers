@@ -28,18 +28,15 @@ jobs:
         uses: trilom/file-changes-action@v1.2.3
       - name: Set Changed Files
         run: |
-          echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
-      - name: test2
-        run: |
-          echo "${{ env.files }}"
+          echo "${{steps.file_changes.outputs.files}}" >> changed.txt
+          echo "hash=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+      - uses: actions/checkout@master
       - uses: jakejarvis/s3-sync-action@master
         with:
-          args: --acl public-read --follow-symlinks --delete --exclude '.git/* .github/* .gitignore'
+          args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*' --exclude '.gitignore'
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.S3_BUCKET_REGION }}
-          
-          
-          
+          DEST_DIR: layers/${{env.hash}}/
