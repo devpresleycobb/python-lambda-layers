@@ -26,16 +26,18 @@ jobs:
     steps:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
-      - name: Create list of modified files
-        id: modified_files_list
-        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
-        with:
-          stringArray: ${{ steps.modified_files.outputs.files_modified }}
       - name: Set Changed Files
         run: |
-          echo '${{ steps.modified_files_list.outputs.stringList }}' >> changed.txt
+          echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
           echo "hash=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
       - uses: actions/checkout@master
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          for f in ${{ env.files }}; do cd /home/runner/work/python-lambda-layers/python-lambda-layers/list_files/python && pip install -r requirements.txt --no-user -t .; done
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*' --exclude '.gitignore'
