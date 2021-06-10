@@ -42,7 +42,3 @@ jobs:
           folder: /home/runner/work/python-lambda-layers/python-lambda-layers/
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: ${{ secrets.S3_BUCKET_REGION }}
-
-
-
-"/home/runner/work/python-lambda-layers/python-lambda-layers/release.zip"
