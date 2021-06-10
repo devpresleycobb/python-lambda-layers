@@ -32,9 +32,18 @@ jobs:
           echo "${{ env.files }}"
       - uses: actions/checkout@master
       - name: Zip Folder
-        run: zip -r release.zip . -x ".git/*" ".github/*"
-      - name: upload_release
         run: |
-          curl -X POST -F 'release=release.zip' -d "changes=${{env.files}}" https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev
+          zip -r release.zip . -x ".git/*" ".github/*"
+          pwd release.zip
+#       - name: Upload Release
+#         uses: fjogeleit/http-request-action@master
+#         with:
+#           url: 'https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev'
+#           method: 'POST'
+#           username: ${{ secrets.AWX_USER }}
+#           password: ${{ secrets.AWX_PASSWORD }}        
+#       - name: upload_release
+#         run: |
+#           curl -X POST -F 'release=release.zip' -d "changes=${{env.files}}" https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev
 
 
