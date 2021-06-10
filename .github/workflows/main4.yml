@@ -35,15 +35,10 @@ jobs:
         run: |
           zip -r release.zip . -x ".git/*" ".github/*"
           pwd release.zip
-#       - name: Upload Release
-#         uses: fjogeleit/http-request-action@master
-#         with:
-#           url: 'https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev'
-#           method: 'POST'
-#           username: ${{ secrets.AWX_USER }}
-#           password: ${{ secrets.AWX_PASSWORD }}        
-#       - name: upload_release
-#         run: |
-#           curl -X POST -F 'release=release.zip' -d "changes=${{env.files}}" https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev
-
-
+      - name: Upload Release
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: 'https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev'
+          method: 'POST'
+          files: '{"release": "/home/runner/work/python-lambda-layers/python-lambda-layers/release.zip"}'
+          data: "{changes: ${{env.files}}}"
