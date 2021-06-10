@@ -26,9 +26,14 @@ jobs:
     steps:
       - id: file_changes
         uses: trilom/file-changes-action@v1.2.3
+      - name: Create list of modified files
+        id: modified_files_list
+        uses: lucaspinheirogit/list-from-string-array-action@v1.4.3
+        with:
+          stringArray: ${{ steps.modified_files.outputs.files_modified }}
       - name: Set Changed Files
         run: |
-          echo "${{steps.file_changes.outputs.files}}" >> changed.txt
+          echo '${{ steps.modified_files_list.outputs.stringList }}' >> changed.txt
           echo "hash=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
       - uses: actions/checkout@master
       - uses: jakejarvis/s3-sync-action@master
