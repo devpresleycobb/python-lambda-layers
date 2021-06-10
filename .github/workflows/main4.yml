@@ -33,17 +33,6 @@ jobs:
       - uses: actions/checkout@master
       - name: Zip Folder
         run: zip -r release.zip . -x ".git/*" ".github/*"
-      - name: default deploy
-        uses: appleboy/lambda-action@master
-        with:
-          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws_region: us-east-1
-          function_name: update_layers
-          zip_file: release.zip
-          environment: changes=${{ env.files }}
-          timeout: 20
-          runtime: python3.7
       - name: upload_release
         run: |
           curl -X POST -F 'release=release.zip' -d "changes=${{env.files}}" https://5fjj44q4xa.execute-api.us-east-1.amazonaws.com/dev
