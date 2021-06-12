@@ -44,7 +44,7 @@ jobs:
             	echo "Skipping .git directory"
             else
             	base=${file%%/*}
-                cd /home/runner/work/python-lambda-layers/python-lambda-layers/${base}/python && pip install -r requirements.txt -t . --no-user && cd .. && zip -rm ${base}.zip python; done
+                cd /home/runner/work/python-lambda-layers/python-lambda-layers/${base}/python && pip install -r requirements.txt -t . --no-user && cd .. && zip -rm ${base}.zip python;
             fi
           done
       - uses: jakejarvis/s3-sync-action@master
