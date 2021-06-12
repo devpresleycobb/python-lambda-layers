@@ -33,7 +33,9 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: Install dependencies
         run: |
+          echo ${{ env.files }}
           for file in ${{ env.files }}; do
+          echo file
             base=${file%%/*}
             cd /home/runner/work/python-lambda-layers/python-lambda-layers/${base:1}/python && pip install -r requirements.txt -t . --no-user && cd .. && zip -rm ${base:1}.zip python; done
       - uses: jakejarvis/s3-sync-action@master
