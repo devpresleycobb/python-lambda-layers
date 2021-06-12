@@ -26,6 +26,7 @@ jobs:
         run: |
           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
           echo "hash=$(echo $GITHUB_SHA | cut -c1-7)" >> $GITHUB_ENV
+          echo "create_release=false >> $GITHUB_ENV"
       - uses: actions/checkout@master
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -39,15 +40,17 @@ jobs:
 
           for file in ${files_list[@]}
           do
-            if [[ $clean = .git* ]]
+            path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/python
+            if [[ $file = .git* ]]
             then
             	echo "Skipping .git directory"
-            else
-            	base=${file%%/*}
-                cd /home/runner/work/python-lambda-layers/python-lambda-layers/${base}/python && pip install -r requirements.txt -t . --no-user && cd .. && zip -rm ${base}.zip python;
+            elif [ -d "$path" ]; then
+                echo "create_release=true >> $GITHUB_ENV"
+                cd $path && pip install -r requirements.txt -t . --no-user && cd .. && zip -rm ${file%%/*}.zip python;
             fi
           done
       - uses: jakejarvis/s3-sync-action@master
+        if: ${{env.create_release}}
         with:
           args: --acl public-read --follow-symlinks --delete --exclude '.git/*' --exclude '.github/*' --exclude '.gitignore'
         env:
