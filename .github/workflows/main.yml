@@ -29,7 +29,9 @@ jobs:
       - uses: actions/checkout@master
       - name: Get Changed Files
         run: |
-          echo git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+          echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
+      - uses: actions/checkout@master
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
         with:
