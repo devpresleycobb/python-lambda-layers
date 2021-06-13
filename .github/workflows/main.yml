@@ -36,8 +36,8 @@ jobs:
         for file in ${files_list[@]}
         do
           echo "files here: $file"
-          path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/tests
-          cd /home/runner/work/python-lambda-layers/python-lambda-layers/
+          path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}${file%%/*}/tests
+          cd /home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/${file%%/*}
           ls -a
           echo $path
           if [[ $file = .git* ]]
