@@ -37,6 +37,8 @@ jobs:
         do
           echo "files here: $file"
           path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/tests
+          cd /home/runner/work/python-lambda-layers/python-lambda-layers/
+          ls
           echo $path
           if [[ $file = .git* ]]
           then
