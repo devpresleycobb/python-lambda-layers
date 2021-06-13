@@ -33,9 +33,9 @@ jobs:
       run: |
         echo ${{ env.files }}
         files=${{ env.files }}
-        clean=${files:1:-1}
-        IFS=" " read -a files_list <<< $clean
+        IFS=" " read -a files_list <<< $files
         for file in ${files_list[@]}
+        echo "files here: $file"
         do
           path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/tests
           if [[ $file = .git* ]]
