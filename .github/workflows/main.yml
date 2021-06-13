@@ -27,10 +27,9 @@ jobs:
 #           echo git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
 #           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
       - uses: actions/checkout@master
-      - name: Get Changed Files
-        run: |
-          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
-          echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
+      - uses: jitterbit/get-changed-files@v1
+      - run: |
+          echo "files=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
       - uses: actions/checkout@master
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
