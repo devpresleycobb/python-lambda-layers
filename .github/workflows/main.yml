@@ -31,7 +31,6 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        echo ${{ env.files }}
         files=${{ env.files }}
         IFS=" " read -a files_list <<< $files
         for file in ${files_list[@]}
@@ -45,5 +44,7 @@ jobs:
               cd $path && pip install -r requirements.txt -t . --no-user;
               cd unit
               python test_handler.py
+          else
+            echo "Directory $path not found skipping"
           fi
         done
