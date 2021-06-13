@@ -29,7 +29,9 @@ jobs:
       - uses: actions/checkout@master
       - uses: jitterbit/get-changed-files@v1
       - run: |
-          echo ${{ steps.files.outputs.all }}
+          for changed_file in ${{ steps.files.outputs.all }}; do
+            echo "Do something with this ${changed_file}."
+          done
           echo "files=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
       - uses: actions/checkout@master
       - name: Set up Python ${{ matrix.python-version }}
