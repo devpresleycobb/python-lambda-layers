@@ -37,11 +37,14 @@ jobs:
         do
           echo "files here: $file"
           path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/${file%%/*}/tests
+          echo $path
           if [[ $file = .git* ]]
           then
             echo "Skipping .git directory"
           elif [ -d "$path" ]; then
-              cd $path && pip install -r requirements.txt -t . --no-user;
+              cd $path
+              ls
+              pip install -r requirements.txt -t . --no-user;
               cd unit
               python test_handler.py
           else
