@@ -20,9 +20,14 @@ jobs:
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - id: file_changes
-        uses: trilom/file-changes-action@v1.2.3
-      - name: Set Changed Files
+#       - id: file_changes
+#         uses: trilom/file-changes-action@v1.2.3
+#       - name: Set Changed Files
+#         run: |
+#           echo git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+#           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
+      - uses: actions/checkout@master
+      - name: Get Changed Files
         run: |
           git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
