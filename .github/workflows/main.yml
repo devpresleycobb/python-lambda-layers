@@ -20,38 +20,9 @@ jobs:
   
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-#       - id: file_changes
-#         uses: trilom/file-changes-action@v1.2.3
-#       - name: Set Changed Files
-#         run: |
-#           echo git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
-#           echo "files=${{steps.file_changes.outputs.files}}" >> $GITHUB_ENV
-      - uses: actions/checkout@master
-      - uses: jitterbit/get-changed-files@v1
-      - run: |
-          for changed_file in ${{ steps.files.outputs.all }}; do
-            echo "Do something with this ${changed_file}."
-          done
-          echo "files=${{ steps.files.outputs.all }}" >> $GITHUB_ENV
-      - uses: actions/checkout@master
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v2
-        with:
-          python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          files=${{ env.files }}
-          clean=${files:1:-1}
-          IFS="," read -a files_list <<< $clean
-          for file in ${files_list[@]}
-          do
-            path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/tests
-            if [[ $file = .git* ]]
-            then
-            	echo "Skipping .git directory"
-            elif [ -d "$path" ]; then
-                cd $path && pip install -r requirements.txt -t . --no-user;
-                cd unit
-                python test_handler.py
-            fi
-          done
+- id: files
+  uses: jitterbit/get-changed-files@v1
+- run: |
+    for changed_file in ${{ steps.files.outputs.all }}; do
+      echo "Do something with this ${changed_file}."
+    done
