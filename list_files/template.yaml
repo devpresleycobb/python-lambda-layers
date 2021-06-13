@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  demo_lambda_layer
+
+  Sample SAM Template for demo_lambda_layer
+
+Globals:
+  Function:
+    Timeout: 25
+
+Resources:
+  S3FileManager:
+    Type: AWS::Serverless::LayerVersion
+    Properties:
+      ContentUri: list_files/layer
+      CompatibleRuntimes:
+        - python3.7
+    Metadata:
+      BuildMethod: python3.7
+
+  S3FileManagerTest:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: s3_file_manager_test
+      CodeUri: list_files/
+      Handler: tests.unit.test_handler.test_lambda_handler
+      Runtime: python3.7
