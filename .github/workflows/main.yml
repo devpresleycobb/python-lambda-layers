@@ -41,7 +41,7 @@ jobs:
             echo "Skipping .git directory"
           elif [ -d "$path" ]; then
               cd $path
-              pip install -r requirements.txt -t . --no-user;
+              pip install -r requirements.txt
               cd tests/unit
               python test_handler.py
           else
