@@ -26,3 +26,4 @@ Resources:
       CodeUri: list_files/
       Handler: tests.unit.test_handler.test_lambda_handler
       Runtime: python3.7
+      Role: arn:aws:iam::897954002633:role/service-role/get_s3_objects
