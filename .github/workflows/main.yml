@@ -52,14 +52,14 @@ jobs:
               python test_handler.py > test_results.txt
               if grep -Fxq "stopping after 1 failures" test_results.txt
               then
-                  echo "passed=1" >> $GITHUB_ENV
+                  echo "failed=1" >> $GITHUB_ENV
               fi
           else
             echo "Directory $path not found skipping"
           fi
         done
     - name: Check Test Results
-      if: ${{ env.passed != 1 }}
+      if: ${{ env.failed == 1 }}
       uses: actions/github-script@v3
       with:
         script: |
