@@ -35,14 +35,15 @@ jobs:
         IFS=" " read -a files_list <<< $files
         for file in ${files_list[@]}
         do
-          path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}
+          path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/${file%%/*}
           if [[ $file = .git* ]]
           then
             echo "Skipping .git directory"
           elif [ -d "$path" ]; then
               cd $path
-              ls
-              sam local invoke --no-event
+              pip install -r requirements.txt
+              cd tests/unit
+              python test_handler.py
           else
             echo "Directory $path not found skipping"
           fi
