@@ -10,5 +10,5 @@ def bucket_name():
 def test_list_files(bucket_name):
     res = s3_file_manager.list_files(bucket_name)
     for file in res:
-        assert file.key
+        assert False
         break
