@@ -2,3 +2,4 @@
 lib/
 .aws-sam
 .pytest_cache
+__pycache__
