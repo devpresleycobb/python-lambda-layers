@@ -8,6 +8,7 @@ def bucket_name():
 
 
 def test_list_files(bucket_name):
+    raise Exception('Testing this')
     res = s3_file_manager.list_files(bucket_name)
     for file in res:
         assert False
