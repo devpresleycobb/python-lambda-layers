@@ -49,7 +49,11 @@ jobs:
               cd $path
               pip install -r requirements.txt
               cd tests/unit
-              python test_handler.py
+              python test_handler.py > test_results.txt
+              if grep -Fxq "stopping after 1 failures" test_results.txt
+              then
+                  exit 1
+              fi
           else
             echo "Directory $path not found skipping"
           fi
