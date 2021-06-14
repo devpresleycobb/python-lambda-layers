@@ -31,11 +31,12 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
+        # ${file%%/*}/${file%%/*}
         files=${{ env.files }}
         IFS=" " read -a files_list <<< $files
         for file in ${files_list[@]}
         do
-          path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}
+          path=/home/runner/work/python-lambda-layers/python-lambda-layers/list_files/list_files
           cd path
           ls
           cd ..
