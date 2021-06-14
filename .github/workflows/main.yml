@@ -36,14 +36,16 @@ jobs:
         for file in ${files_list[@]}
         do
           path=/home/runner/work/python-lambda-layers/python-lambda-layers/${file%%/*}/${file%%/*}
+          cd path
+          ls
+          cd ..
+          ls
           if [[ $file = .git* ]]
           then
             echo "Skipping .git directory"
           elif [ -d "$path" ]; then
               cd $path
-              pip install -r requirements.txt
-              cd tests/unit
-              python test_handler.py
+              sam local invoke --no-event
           else
             echo "Directory $path not found skipping"
           fi
