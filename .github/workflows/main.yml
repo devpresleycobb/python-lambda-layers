@@ -52,15 +52,10 @@ jobs:
               python test_handler.py > test_results.txt
               if grep "stopping after 1 failures" test_results.txt
               then
+                  cat test_results.txt
                   exit 1
               fi
           else
             echo "Directory $path not found skipping"
           fi
         done
-    - name: Check Test Results
-      if: ${{ env.failed == 1 }}
-      uses: actions/github-script@v3
-      with:
-        script: |
-            core.setFailed('Unit Test Failure')
